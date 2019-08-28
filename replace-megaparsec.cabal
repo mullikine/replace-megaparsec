@@ -62,3 +62,14 @@ test-suite test-bytestring
                       , megaparsec
                       , Cabal
                       , bytestring
+
+benchmark bench-bash
+  main-is:            StreamEditBash.hs
+  hs-source-dirs:     bench
+  type:               exitcode-stdio-1.0
+  build-depends:      base
+                    , megaparsec
+                    , replace-megaparsec
+
+  ghc-options:        -O2 -Wall
+
