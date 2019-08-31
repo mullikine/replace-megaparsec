@@ -63,13 +63,44 @@ test-suite test-bytestring
                       , Cabal
                       , bytestring
 
-benchmark bench-bash
-  main-is:            StreamEditBash.hs
+executable bench-string
+  main-is:            BenchString.hs
+  hs-source-dirs:     bench
+--  type:               exitcode-stdio-1.0
+  build-depends:      base
+                    , megaparsec
+                    , replace-megaparsec
+  ghc-options:        -O2 -Wall
+
+executable bench-text
+  main-is:            BenchText.hs
+  hs-source-dirs:     bench
+--  type:               exitcode-stdio-1.0
+  build-depends:      base
+                    , megaparsec
+                    , replace-megaparsec
+                    , text
+  ghc-options:        -O2 -Wall
+
+executable bench-bytestring
+  main-is:            BenchByteString.hs
+  hs-source-dirs:     bench
+--  type:               exitcode-stdio-1.0
+  build-depends:      base
+                    , megaparsec
+                    , replace-megaparsec
+                    , bytestring
+  ghc-options:        -O2 -Wall
+
+benchmark bench-unit
+  main-is:            BenchUnit.hs
   hs-source-dirs:     bench
   type:               exitcode-stdio-1.0
   build-depends:      base
                     , megaparsec
                     , replace-megaparsec
-
+                    , text
+                    , bytestring
+                    , criterion
   ghc-options:        -O2 -Wall
 

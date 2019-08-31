@@ -90,6 +90,7 @@ import Text.Megaparsec
 -- but, importantly, it returns the parsed result of the @sep@ parser instead
 -- of throwing it away.
 --
+{-# INLINABLE sepCap #-}
 sepCap
     :: forall e s m a. (MonadParsec e s m)
     => m a -- ^ The pattern matching parser @sep@
@@ -126,6 +127,7 @@ sepCap sep = (fmap.fmap) (first $ tokensToChunk (Proxy::Proxy s))
 -- @
 --     findAllCap sep = 'sepCap' ('Text.Megaparsec.match' sep)
 -- @
+{-# INLINABLE findAllCap #-}
 findAllCap
     :: MonadParsec e s m
     => m a -- ^ The pattern matching parser @sep@
@@ -144,6 +146,7 @@ findAllCap sep = sepCap (match sep)
 -- @
 --     findAll sep = (fmap.fmap) ('Data.Bifunctor.second' fst) $ 'sepCap' ('Text.Megaparsec.match' sep)
 -- @
+{-# INLINABLE findAll #-}
 findAll
     :: MonadParsec e s m
     => m a -- ^ The pattern matching parser @sep@
@@ -206,6 +209,7 @@ findAll sep = (fmap.fmap) (second fst) $ sepCap (match sep)
 --
 -- If you want the @editor@ function or the parser @sep@ to remember some state,
 -- then run this in a stateful monad.
+{-# INLINABLE streamEditT #-}
 streamEditT
     :: forall s m a. (Stream s, Monad m, Monoid s, Tokens s ~ s, Show s, Show (Token s), Typeable s)
     => ParsecT Void s m a
@@ -227,6 +231,7 @@ streamEditT sep editor input = do
 -- == Pure stream editor
 --
 -- Pure version of 'streamEditT'.
+{-# INLINABLE streamEdit #-}
 streamEdit
     :: forall s a. (Stream s, Monoid s, Tokens s ~ s, Show s, Show (Token s), Typeable s)
     => Parsec Void s a
